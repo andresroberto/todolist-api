@@ -1,9 +1,10 @@
 class TasksController < ApplicationController
+  before_action :set_list
   before_action :set_task, only: %i[ show update destroy ]
 
   # GET /tasks
   def index
-    @tasks = Task.all
+    @tasks = @list.tasks
 
     render json: @tasks
   end
@@ -15,10 +16,10 @@ class TasksController < ApplicationController
 
   # POST /tasks
   def create
-    @task = Task.new(task_params)
+    @task = @list.tasks.build(task_params)
 
     if @task.save
-      render json: @task, status: :created, location: @task
+      render json: @task, status: :created, location: list_task_url(@list, @task)
     else
       render json: @task.errors, status: :unprocessable_entity
     end
@@ -39,6 +40,10 @@ class TasksController < ApplicationController
   end
 
   private
+    def set_list
+      @list = List.find(params[:list_id])
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_task
       @task = Task.find(params[:id])
