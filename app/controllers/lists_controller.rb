@@ -10,7 +10,7 @@ class ListsController < ApplicationController
 
   # GET /lists/1
   def show
-    render json: @list
+    render json: @list.as_json(include: :tasks)
   end
 
   # POST /lists
@@ -41,7 +41,7 @@ class ListsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_list
-      @list = List.find(params[:id])
+      @list = List.includes(:tasks).find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.
