@@ -2,19 +2,19 @@ class TasksController < ApplicationController
   before_action :set_list
   before_action :set_task, only: %i[ show update destroy ]
 
-  # GET /tasks
+  # GET /lists/:list_id/tasks
   def index
     @tasks = @list.tasks
 
     render json: @tasks
   end
 
-  # GET /tasks/1
+  # GET /lists/:list_id/tasks/:id
   def show
     render json: @task
   end
 
-  # POST /tasks
+  # POST /lists/:list_id/tasks
   def create
     @task = @list.tasks.build(task_params)
 
@@ -25,7 +25,7 @@ class TasksController < ApplicationController
     end
   end
 
-  # PATCH/PUT /tasks/1
+  # /lists/:list_id/tasks/:id
   def update
     if @task.update(task_params)
       render json: @task
@@ -34,7 +34,7 @@ class TasksController < ApplicationController
     end
   end
 
-  # DELETE /tasks/1
+  # DELETE /lists/:list_id/tasks/:id
   def destroy
     @task.destroy!
   end
