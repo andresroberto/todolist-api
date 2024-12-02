@@ -11,16 +11,13 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.2].define(version: 2024_10_10_152508) do
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
-
-  create_table "lists", force: :cascade do |t|
+  create_table "lists", charset: "utf8mb3", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "tasks", force: :cascade do |t|
+  create_table "tasks", charset: "utf8mb3", force: :cascade do |t|
     t.string "text"
     t.boolean "completed"
     t.bigint "list_id", null: false
